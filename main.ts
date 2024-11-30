@@ -55,7 +55,7 @@ const getResults = async () => {
   return { results };
 };
 
-const renderFn = pug.compileFile("templates/widget.pug");
+const renderFn = pug.compileFile("templates/hevy.pug");
 
 Deno.serve(async (req) => {
   if (req.method !== "GET") {
