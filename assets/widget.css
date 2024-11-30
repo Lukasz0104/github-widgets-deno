@@ -1,0 +1,14 @@
+.header {
+  font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif;
+  fill: #2f80ed;
+}
+
+.italic {
+  font-style: italic;
+  font-size: smaller;
+}
+
+.copyright {
+  font-size: x-small;
+  fill: gray;
+}

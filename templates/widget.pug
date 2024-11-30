@@ -1,0 +1,36 @@
+svg(width=275, height=175, xmlns="http://www.w3.org/2000/svg")
+  style
+    include ../assets/widget.css
+  title My powerlifting stats 💪
+
+  rect(x="0.5", y="0.5", rx="4.5", height="99%", stroke="#e4e2e2", width=274, fill="#00000000", stroke-opacity="1")
+
+  g(transform="translate(25, 30)")
+    text(x="0", y="0", class="header") 💪 My powerlifting PRs 💪
+  
+  g(transform="translate(0, 45)", class="italic")
+    text(x=25, y=12.5) exercise
+    text(x=150, y=12.5) weight
+    text(x=220, y=12.5) reps
+    path(d="M25 17.5 L250 17.5", stroke="gray")
+
+  g(transform="translate(0, 70)", class="result")
+    text(x=25, y=12.5) Bench press
+    if results.benchPress
+      text(x=150, y=12.5) #{results.benchPress.weight} #{results.benchPress.unit}
+      text(x=220, y=12.5) #{results.benchPress.reps}
+
+  g(transform="translate(0, 100)", class="result")
+    text(x=25, y=12.5) Deadlift
+    if results.deadlift
+      text(x=150, y=12.5) #{results.deadlift.weight} #{results.deadlift.unit}
+      text(x=220, y=12.5) #{results.deadlift.reps}
+
+  g(transform="translate(0, 130)", class="result")
+    text(x=25, y=12.5) Squat
+    if results.squat
+      text(x=150, y=12.5) #{results.squat.weight} #{results.squat.unit}
+      text(x=220, y=12.5) #{results.squat.reps}
+  
+  g(transform="translate(0, 155)")
+    text(x=200, y=12.5, class="copyright") ©Lukasz0104
