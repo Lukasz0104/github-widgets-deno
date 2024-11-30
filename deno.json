@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "dev": "deno run --env-file --allow-all --watch *.ts templates/*.pug"
+    "dev": "deno run --env-file --allow-all --watch *.ts"
   },
   "imports": {
     "@std/assert": "jsr:@std/assert@1",

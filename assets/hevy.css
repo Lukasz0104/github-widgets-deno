@@ -1,3 +1,7 @@
+svg {
+  background-color: white;
+}
+
 .header {
   font: 600 18px "Segoe UI", Ubuntu, Sans-Serif;
   fill: #2f80ed;
