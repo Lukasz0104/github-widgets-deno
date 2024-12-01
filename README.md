@@ -8,9 +8,11 @@ Collection of README widgets created with
 
 ### Powerlifting PRs 🏋️
 
-[![My powerlifting PRs](https://lukasz0104-github-widgets.deno.dev?username=lukasz0104)](https://github.com/Lukasz0104/github-widgets-deno)
+[![My powerlifting PRs](https://lukasz0104-github-widgets.deno.dev/hevy?username=lukasz0104)](https://github.com/Lukasz0104/github-widgets-deno)
 
 ### Duolingo stats
+
+[![My Duolingo stats](https://lukasz0104-github-widgets.deno.dev/duolingo?id=452738409)](https://github.com/Lukasz0104/github-widgets-deno)
 
 ## Running locally
 
@@ -27,14 +29,22 @@ deno run dev
 
 ### Powerlifting PRs
 
-Replace `<HEVY USERNAME>` with your username from
+Replace `<HEVY_USERNAME>` with your username from
 [Hevy](https://www.hevyapp.com/):
 
 ```md
-[![My powerlifting PRs](https://lukasz0104-github-widgets.deno.dev?username=<HEVY USERNAME>)](https://github.com/Lukasz0104/github-widgets-deno)
+[![My powerlifting PRs](https://lukasz0104-github-widgets.deno.dev/hevy?username=<HEVY_USERNAME>)](https://github.com/Lukasz0104/github-widgets-deno)
 ```
 
 > [!NOTE]
 > The PR for each exercise (bench press, deadlift, squat) is calculated from
 > your last 50 public workouts by taking the set with highest weight (and most
 > reps).
+
+### Duolingo
+
+Replace `<DUOLINGO_ID>` with your id from Duolingo:
+
+```md
+[![My Duolingo stats](https://lukasz0104-github-widgets.deno.dev/duolingo?id=<DUOLINGO_ID>)](https://github.com/Lukasz0104/github-widgets-deno)
+```
