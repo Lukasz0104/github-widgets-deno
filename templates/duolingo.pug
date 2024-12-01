@@ -1,0 +1,44 @@
+- const width = 327
+- const height = 132 //+ courses.length * 45
+
+svg(width=width, height=height, xmlns="http://www.w3.org/2000/svg")
+  style
+    include ../assets/duolingo.css
+  title #{name}'s Duolingo stats
+
+  rect(x=0.5, y=0.5, rx=7.5, ry=7.5, height="99%", stroke="#58CC02", width=width - 1, fill="#131f24" stroke-opacity="1", stroke-width=2)
+
+  g(transform="translate(25, 30)")
+    text(x=0, y=0, class="header") Duolingo stats of
+    text(x=0, y=20, class="larger") #{name}
+
+  - const offsetName = 25
+  - const offsetWeight = 140
+  - const offsetReps = 220
+  - const offsetY = 12.5
+
+  g(transform="translate(25, 65)")
+    rect(x=0, y=0, rx=4.5, height=45, width=125, stroke="#58cc02", stroke-width=1)
+    svg(x=8, y=5.5, transform="scale(1.5)")
+      include ../assets/fire.svg
+    text(x=45, y=20) #{streak}
+    text(x=45, y=36, class="small") Day streak
+  
+  g(transform="translate(175, 65)")
+    rect(x=0, y=0, rx=4.5, height=45, width=125, stroke="#58cc02", stroke-width=1)
+    svg(x=10, y=8)
+      include ../assets/lightning.svg
+    text(x=40, y=20) #{totalXp}
+    text(x=40, y=36, class="small") Total XP
+  
+  //- g(transform="translate(25, 120)")
+  //-   text(x=0, y=10, class="small") Courses:
+
+  //-   g(transform="translate(0, 20)")
+  //-     each course, index in courses
+  //-       g(transform=`translate(0, ${45 * index})`)
+  //-         rect(x=0, y=0, rx=4.5, height=35, width=275, stroke="#58cc02", stroke-width=1)
+  //-         text(x=0, y=offsetY) #{course.xp}
+  
+  g(transform=`translate(0, ${height - 20})`)
+    text(x=width - 75, y=offsetY, class="copyright") ©Lukasz0104

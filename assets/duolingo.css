@@ -1,0 +1,26 @@
+* {
+  font-family: din-round, sans-serif;
+}
+
+text {
+  fill: #fff;
+}
+
+.header {
+  fill: #58cc02;
+  font-size: smaller;
+}
+
+.larger {
+  font-size: larger;
+}
+
+.small {
+  font-size: small;
+  fill: #aaa;
+}
+
+.copyright {
+  font-size: x-small;
+  fill: #ccc;
+}
