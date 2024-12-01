@@ -1,36 +1,44 @@
-svg(width=275, height=175, xmlns="http://www.w3.org/2000/svg")
+- const width = 275
+- const height = 175
+
+svg(width=width, height=height, xmlns="http://www.w3.org/2000/svg")
   style
     include ../assets/hevy.css
-  title My powerlifting stats 💪
+  title #{username}'s powerlifting records 💪
 
-  rect(x="0.5", y="0.5", rx="4.5", height="99%", stroke="#e4e2e2", width=274, fill="#00000000", stroke-opacity="1")
+  rect(x="0.5", y="0.5", rx="4.5", height="99%", stroke="#e4e2e2", width=width - 1, fill="#ececec", stroke-opacity="1")
 
   g(transform="translate(25, 30)")
     text(x="0", y="0", class="header") 💪 My powerlifting PRs 💪
+
+  - const offsetName = 25
+  - const offsetWeight = 140
+  - const offsetReps = 220
+  - const offsetY = 12.5
   
   g(transform="translate(0, 45)", class="italic")
-    text(x=25, y=12.5) exercise
-    text(x=150, y=12.5) weight
-    text(x=220, y=12.5) reps
-    path(d="M25 17.5 L250 17.5", stroke="gray")
+    text(x=offsetName, y=offsetY) exercise
+    text(x=offsetWeight, y=offsetY) weight
+    text(x=offsetReps, y=offsetY) reps
+    path(d=`M25 17.5 L${width - offsetName} 17.5`, stroke="gray")
 
   g(transform="translate(0, 70)", class="result")
-    text(x=25, y=12.5) Bench press
+    text(x=offsetName, y=offsetY) Bench press
     if results.benchPress
-      text(x=150, y=12.5) #{results.benchPress.weight} #{results.benchPress.unit}
-      text(x=220, y=12.5) #{results.benchPress.reps}
+      text(x=offsetWeight, y=offsetY) #{results.benchPress.weight} #{results.benchPress.unit}
+      text(x=offsetReps, y=offsetY) #{results.benchPress.reps}
 
   g(transform="translate(0, 100)", class="result")
-    text(x=25, y=12.5) Deadlift
+    text(x=offsetName, y=offsetY) Deadlift
     if results.deadlift
-      text(x=150, y=12.5) #{results.deadlift.weight} #{results.deadlift.unit}
-      text(x=220, y=12.5) #{results.deadlift.reps}
+      text(x=offsetWeight, y=offsetY) #{results.deadlift.weight} #{results.deadlift.unit}
+      text(x=offsetReps, y=offsetY) #{results.deadlift.reps}
 
   g(transform="translate(0, 130)", class="result")
-    text(x=25, y=12.5) Squat
+    text(x=offsetName, y=offsetY) Squat
     if results.squat
-      text(x=150, y=12.5) #{results.squat.weight} #{results.squat.unit}
-      text(x=220, y=12.5) #{results.squat.reps}
+      text(x=offsetWeight, y=offsetY) #{results.squat.weight} #{results.squat.unit}
+      text(x=offsetReps, y=offsetY) #{results.squat.reps}
   
-  g(transform="translate(0, 155)")
-    text(x=200, y=12.5, class="copyright") ©Lukasz0104
+  g(transform="translate(0, 150)")
+    text(x=200, y=offsetY, class="copyright") ©Lukasz0104

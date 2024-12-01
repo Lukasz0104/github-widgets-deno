@@ -82,6 +82,13 @@ export interface PersonalRecord {
   value: number;
 }
 
+export type ExerciseName = "benchPress" | "deadlift" | "squat";
+
+export interface UserBestResults {
+  username: string;
+  results: Partial<Record<ExerciseName, BestResult>>;
+}
+
 export interface BestResult {
   weight: number;
   reps: number;
