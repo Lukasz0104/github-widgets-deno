@@ -37,6 +37,10 @@ Deno.serve(async (req) => {
 
     const stats = await getStatsById(id);
 
+    if (Object.keys(stats).length === 0) {
+      return new Response("User not found", { status: 404 });
+    }
+
     return svgResponse(renderDuolingoWidget(stats));
   } else {
     return new Response(null, { status: 404 });
