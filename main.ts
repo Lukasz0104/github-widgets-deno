@@ -10,16 +10,17 @@ const renderHevyWidget = pug.compileFile("templates/hevy.pug");
 const renderDuolingoWidget = pug.compileFile("templates/duolingo.pug");
 
 const NO_CACHE_HEADERS: Record<string, string> = {
-  "cache-control": "no-cache, no-store"
+  "cache-control": "no-cache, no-store",
 };
 
 const svgResponse = async (content: string) =>
-  new Response(content, { headers: { 
-    "content-type": "image/svg+xml",
-    "etag": await eTag(content),
-    ...NO_CACHE_HEADERS,
-  }
-});
+  new Response(content, {
+    headers: {
+      "content-type": "image/svg+xml",
+      "etag": await eTag(content),
+      ...NO_CACHE_HEADERS,
+    },
+  });
 
 Deno.serve(async (req) => {
   if (req.method !== "GET") {

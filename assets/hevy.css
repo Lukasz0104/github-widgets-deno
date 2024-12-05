@@ -8,6 +8,10 @@
   font-size: smaller;
 }
 
+.text-gray {
+  fill: #555;
+}
+
 .copyright {
   font-size: x-small;
   fill: #555;

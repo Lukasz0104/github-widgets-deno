@@ -3,6 +3,7 @@ import {
   ExerciseName,
   UserBestResults,
   UserWorkouts,
+  WeightWithUnit,
 } from "./model.ts";
 
 const X_API_KEY = Deno.env.get("X_API_KEY");
@@ -24,6 +25,8 @@ const EXERCISE_ID_TO_NAME = new Map<string, ExerciseName>([
   ["79D0BB3A", "benchPress"],
   ["D04AC939", "squat"],
 ]);
+
+const EXERCISE_NAMES = new Set(EXERCISE_ID_TO_NAME.values());
 
 const bestResultCompareFn = (v1: BestResult, v2: BestResult) => {
   if (v1.weight == v2.weight) return v2.reps - v1.reps;
@@ -79,5 +82,17 @@ export const getResultsByUsername = async (
   const results = bestResults.reduce(
     (prev, current) => Object.assign(prev, current),
   );
-  return { username, results };
+
+  let total: WeightWithUnit | undefined;
+  if (
+    Object.keys(results).every((key) => EXERCISE_NAMES.has(key as ExerciseName))
+  ) {
+    const sum = Object.values(results).reduce(
+      (sum, { weight }) => sum + weight,
+      0,
+    );
+    total = { unit: "kg", weight: sum };
+  }
+
+  return { username, results, total };
 };

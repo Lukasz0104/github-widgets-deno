@@ -1,12 +1,12 @@
 - const width = 275
-- const height = 175
+- const height = 160 + 30 * !!total
 
 svg(width=width, height=height, xmlns="http://www.w3.org/2000/svg")
   style
     include ../assets/hevy.css
   title #{username}'s powerlifting records 💪
 
-  rect(x="0.5", y="0.5", rx="4.5", height="99%", stroke="#e4e2e2", width=width - 1, fill="#ececec", stroke-opacity="1")
+  rect(x="0.5", y="0.5", rx="4.5", height="99%", stroke="#c4c2c2", width=width - 1, fill="#efefef", stroke-opacity="1", stroke-width=2)
 
   g(transform="translate(25, 30)")
     text(x="0", y="0", class="header") 💪 My powerlifting PRs 💪
@@ -16,7 +16,7 @@ svg(width=width, height=height, xmlns="http://www.w3.org/2000/svg")
   - const offsetReps = 220
   - const offsetY = 12.5
   
-  g(transform="translate(0, 45)", class="italic")
+  g(transform="translate(0, 45)", class="italic text-gray")
     text(x=offsetName, y=offsetY) exercise
     text(x=offsetWeight, y=offsetY) weight
     text(x=offsetReps, y=offsetY) reps
@@ -28,17 +28,24 @@ svg(width=width, height=height, xmlns="http://www.w3.org/2000/svg")
       text(x=offsetWeight, y=offsetY) #{results.benchPress.weight} #{results.benchPress.unit}
       text(x=offsetReps, y=offsetY) #{results.benchPress.reps}
 
-  g(transform="translate(0, 100)", class="result")
+  g(transform="translate(0, 95)", class="result")
     text(x=offsetName, y=offsetY) Deadlift
     if results.deadlift
       text(x=offsetWeight, y=offsetY) #{results.deadlift.weight} #{results.deadlift.unit}
       text(x=offsetReps, y=offsetY) #{results.deadlift.reps}
 
-  g(transform="translate(0, 130)", class="result")
+  g(transform="translate(0, 120)", class="result")
     text(x=offsetName, y=offsetY) Squat
     if results.squat
       text(x=offsetWeight, y=offsetY) #{results.squat.weight} #{results.squat.unit}
       text(x=offsetReps, y=offsetY) #{results.squat.reps}
+
+  if total
+    g(transform="translate(0, 142.5)")
+      path(d=`M25 0 L${width - offsetName} 0`, stroke="black")
+      g(transform="translate(0, 7.5)")
+        text(x=offsetName, y=offsetY) Total
+        text(x=offsetWeight, y=offsetY) #{total.weight} #{total.unit}
   
-  g(transform="translate(0, 150)")
+  g(transform=`translate(0, ${height - 20})`)
     text(x=200, y=offsetY, class="copyright") ©Lukasz0104
