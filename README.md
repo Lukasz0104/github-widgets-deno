@@ -8,11 +8,11 @@ Collection of README widgets created with
 
 ### Powerlifting PRs 🏋️
 
-[![My powerlifting PRs](https://lukasz0104-github-widgets.deno.dev/hevy?username=lukasz0104)](https://github.com/Lukasz0104/github-widgets-deno)
+[![My powerlifting PRs](https://lukasz0104-github-widgets.deno.dev/hevy?username=lukasz0104)](https://lukasz0104-github-widgets.deno.dev/hevy?username=lukasz0104)
 
 ### Duolingo stats
 
-[![My Duolingo stats](https://lukasz0104-github-widgets.deno.dev/duolingo?id=452738409)](https://github.com/Lukasz0104/github-widgets-deno)
+[![My Duolingo stats](https://lukasz0104-github-widgets.deno.dev/duolingo?id=452738409)](https://lukasz0104-github-widgets.deno.dev/duolingo?id=452738409)
 
 ## Running locally
 
@@ -23,6 +23,12 @@ Collection of README widgets created with
 
 ```bash
 deno run dev
+```
+
+**In order to use OpenTelemetry integration for Deno** fill `OTEL_*` variables in `.env` and run:
+
+```bash
+dotenv run deno run dev
 ```
 
 ## Adding to your profile

@@ -23,6 +23,7 @@ const svgResponse = async (content: string) =>
   });
 
 Deno.serve(async (req) => {
+  console.log(`${req.method} ${req.url}`);
   if (req.method !== "GET") {
     return new Response("", { status: 405 });
   }

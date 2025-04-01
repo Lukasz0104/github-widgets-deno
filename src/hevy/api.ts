@@ -36,15 +36,28 @@ const bestResultCompareFn = (v1: BestResult, v2: BestResult) => {
 export const getResultsByUsername = async (
   username: string,
 ): Promise<UserBestResults> => {
-  const url =
-    `https://api.hevyapp.com/user_workouts_paged?username=${username}&limit=50`;
-  const response = await fetch(url, { headers: HEVY_HEADERS });
+  const baseUrl =
+    `https://api.hevyapp.com/user_workouts_paged?username=${username}`;
 
-  if (response.status !== 200) {
-    return { username, results: {} };
-  }
+  const responses = await Promise.all(
+    Array(10).keys().map(async (_, index) =>
+      await fetch(
+        `${baseUrl}&limit=5&offset=${index * 5}`,
+        { headers: HEVY_HEADERS },
+      )
+    ),
+  );
 
-  const userWorkouts = await response.json() as UserWorkouts;
+  const userWorkouts = (await Promise.all(
+    responses
+      .filter((resp) => resp.status === 200)
+      .map(async (response) => await response.json() as UserWorkouts),
+  ))
+    .reduce(
+      (workouts, current) => (
+        { workouts: [...workouts.workouts, ...current.workouts] }
+      ),
+    );
 
   const filteredExercises = userWorkouts
     .workouts
