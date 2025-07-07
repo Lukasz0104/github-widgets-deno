@@ -8,11 +8,11 @@ Collection of README widgets created with
 
 ### Powerlifting PRs 🏋️
 
-[![My powerlifting PRs](https://lukasz0104-github-widgets.deno.dev/hevy?username=lukasz0104)](https://lukasz0104-github-widgets.deno.dev/hevy?username=lukasz0104)
+[![My powerlifting PRs](https://github-widgets-deno.lukasz0104.deno.net/hevy?username=lukasz0104)](https://lukasz0104-github-widgets.deno.dev/hevy?username=lukasz0104)
 
 ### Duolingo stats
 
-[![My Duolingo stats](https://lukasz0104-github-widgets.deno.dev/duolingo?id=452738409)](https://lukasz0104-github-widgets.deno.dev/duolingo?id=452738409)
+[![My Duolingo stats](https://github-widgets-deno.lukasz0104.deno.net/duolingo?id=452738409)](https://lukasz0104-github-widgets.deno.dev/duolingo?id=452738409)
 
 ## Running locally
 
@@ -25,7 +25,8 @@ Collection of README widgets created with
 deno run dev
 ```
 
-**In order to use OpenTelemetry integration for Deno** fill `OTEL_*` variables in `.env` and run:
+**In order to use OpenTelemetry integration for Deno** fill `OTEL_*` variables
+in `.env` and run:
 
 ```bash
 dotenv run deno run dev
@@ -39,7 +40,7 @@ Replace `<HEVY_USERNAME>` with your username from
 [Hevy](https://www.hevyapp.com/):
 
 ```md
-[![My powerlifting PRs](https://lukasz0104-github-widgets.deno.dev/hevy?username=<HEVY_USERNAME>)](https://github.com/Lukasz0104/github-widgets-deno)
+[![My powerlifting PRs](https://github-widgets-deno.lukasz0104.deno.net/hevy?username=<HEVY_USERNAME>)](https://github.com/Lukasz0104/github-widgets-deno)
 ```
 
 > [!NOTE]
@@ -52,5 +53,5 @@ Replace `<HEVY_USERNAME>` with your username from
 Replace `<DUOLINGO_ID>` with your id from Duolingo:
 
 ```md
-[![My Duolingo stats](https://lukasz0104-github-widgets.deno.dev/duolingo?id=<DUOLINGO_ID>)](https://github.com/Lukasz0104/github-widgets-deno)
+[![My Duolingo stats](https://github-widgets-deno.lukasz0104.deno.net/duolingo?id=<DUOLINGO_ID>)](https://github.com/Lukasz0104/github-widgets-deno)
 ```

@@ -1,5 +1,5 @@
 import {
-  BestResult,
+  BestSet,
   ExerciseName,
   UserBestResults,
   UserWorkouts,
@@ -24,40 +24,21 @@ const EXERCISE_ID_TO_NAME = new Map<string, ExerciseName>([
   ["C6272009", "deadlift"],
   ["79D0BB3A", "benchPress"],
   ["D04AC939", "squat"],
+  ["D20D7BBE", "deadlift"], // sumo deadlift
 ]);
 
-const EXERCISE_NAMES = new Set(EXERCISE_ID_TO_NAME.values());
+const BASE_URL = `https://api.hevyapp.com/user_workouts_paged`;
 
-const bestResultCompareFn = (v1: BestResult, v2: BestResult) => {
+const bestResultCompareFn = (v1: BestSet, v2: BestSet) => {
   if (v1.weight == v2.weight) return v2.reps - v1.reps;
   return v2.weight - v1.weight;
 };
 
 export const getResultsByUsername = async (
   username: string,
+  pages: number = 10,
 ): Promise<UserBestResults> => {
-  const baseUrl =
-    `https://api.hevyapp.com/user_workouts_paged?username=${username}`;
-
-  const responses = await Promise.all(
-    Array(10).keys().map(async (_, index) =>
-      await fetch(
-        `${baseUrl}&limit=5&offset=${index * 5}`,
-        { headers: HEVY_HEADERS },
-      )
-    ),
-  );
-
-  const userWorkouts = (await Promise.all(
-    responses
-      .filter((resp) => resp.status === 200)
-      .map(async (response) => await response.json() as UserWorkouts),
-  ))
-    .reduce(
-      (workouts, current) => (
-        { workouts: [...workouts.workouts, ...current.workouts] }
-      ),
-    );
+  const userWorkouts = await fetchUserWorkouts(username, pages);
 
   const filteredExercises = userWorkouts
     .workouts
@@ -66,46 +47,72 @@ export const getResultsByUsername = async (
       EXERCISE_ID_TO_NAME.has(exercise.exercise_template_id)
     );
 
-  const grouped = Object.groupBy(
+  const nameToExercises = Object.groupBy(
     filteredExercises,
-    (e) => e.exercise_template_id,
+    (e) => EXERCISE_ID_TO_NAME.get(e.exercise_template_id)!,
   );
 
-  const bestResults = Object.entries(grouped).map(([id, exercises]) => {
-    const best = exercises!
-      .flatMap((exercise) => exercise.sets)
-      .map((set) =>
-        <BestResult> {
-          reps: set.reps,
-          weight: set.weight_kg,
-          unit: "kg",
-        }
-      )
-      .sort(bestResultCompareFn)
-      .at(0);
+  const bestResults: [ExerciseName, BestSet][] = Object.entries(nameToExercises)
+    .map(([name, exercises]) => {
+      const best = exercises!
+        .flatMap((exercise) => exercise.sets)
+        .map((set) =>
+          <BestSet> {
+            reps: set.reps,
+            weight: set.weight_kg,
+            unit: "kg",
+          }
+        )
+        .sort(bestResultCompareFn)
+        .at(0);
 
-    const result: Partial<Record<ExerciseName, BestResult>> = {};
-    if (best) {
-      const name = EXERCISE_ID_TO_NAME.get(id)!;
-      result[name] = best;
-    }
-    return result;
-  });
+      return [name as ExerciseName, best!];
+    });
 
-  const results = bestResults.reduce(
-    (prev, current) => Object.assign(prev, current),
-  );
-
-  let total: WeightWithUnit | undefined;
-  if (
-    Object.keys(results).every((key) => EXERCISE_NAMES.has(key as ExerciseName))
-  ) {
-    const sum = Object.values(results).reduce(
-      (sum, { weight }) => sum + weight,
-      0,
-    );
-    total = { unit: "kg", weight: sum };
-  }
+  const results = Object.fromEntries(bestResults);
+  const total = findTotal(bestResults);
 
   return { username, results, total };
+};
+
+const fetchUserWorkouts = async (
+  username: string,
+  pages: number = 10,
+): Promise<UserWorkouts> => {
+  const urlWithUsername = `${BASE_URL}?username=${username}&limit=5`;
+
+  const responses = await Promise.all(
+    Array(pages).keys().map((_, index) =>
+      fetchPage(`${urlWithUsername}&offset=${index * 5}`)
+    ),
+  );
+
+  const userWorkouts = await Promise.all(
+    responses
+      .filter((resp) => resp.status === 200)
+      .map(async (response) => await response.json() as UserWorkouts),
+  );
+
+  return userWorkouts.reduce(
+    ({ workouts }, current) => ({
+      workouts: [...workouts, ...current.workouts],
+    }),
+  );
+};
+
+const fetchPage = async (url: string): Promise<Response> => {
+  const response = await fetch(url, { headers: HEVY_HEADERS });
+  console.debug(`GET ${url}: ${response.status}`);
+  return response;
+};
+
+const findTotal = (
+  results: [ExerciseName, BestSet][],
+): WeightWithUnit | undefined => {
+  if (results.length === 3) {
+    const sum = results.reduce((sum, [_, { weight }]) => sum + weight, 0);
+    return { unit: "kg", weight: sum };
+  } else {
+    return undefined;
+  }
 };

@@ -86,7 +86,7 @@ export type ExerciseName = "benchPress" | "deadlift" | "squat";
 
 export interface UserBestResults {
   username: string;
-  results: Partial<Record<ExerciseName, BestResult>>;
+  results: Partial<Record<ExerciseName, BestSet>>;
   total?: WeightWithUnit;
 }
 
@@ -95,6 +95,6 @@ export interface WeightWithUnit {
   unit: "kg";
 }
 
-export interface BestResult extends WeightWithUnit {
+export interface BestSet extends WeightWithUnit {
   reps: number;
 }
